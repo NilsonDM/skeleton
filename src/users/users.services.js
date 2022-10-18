@@ -107,6 +107,35 @@ const getMyUser = (req , res) => {
     })
 }
 
+const patchMyUser = (req, res) => {
+  const id = req.user.id
+  const {firstName, lastName, phone, birthday, gender, country} = req.body
+  usersControllers.updateUser(id, {firstName, lastName, phone, birthday, gender, country} )
+    .then(() => {
+      res.status(200).json({message: 'Your user was edited succesfully'})
+
+    })
+    .catch(err => {
+      res.status(400).json({message: err.message})
+    })
+}
+
+//DOS TIPOS DE DELETE
+//Por administrador
+//Por mi mismo
+
+const deleteMyUser = (req, res) => {
+  const id = req.user.id
+  usersControllers.updateUser(id, {status: 'inactive'})
+    .then(() => {
+      res.status(200).json({message: 'Your user was deleted succesfully'})
+
+    })
+    .catch(err => {
+      res.status(400).json({message: err.message})
+    })
+}
+
 
 
 module.exports = {
@@ -115,6 +144,8 @@ module.exports = {
     patchUser,
     registerUser,
     deleteUser,
-    getMyUser
+    getMyUser,
+    deleteMyUser,
+    patchMyUser
 }
 

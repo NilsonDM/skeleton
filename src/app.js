@@ -5,6 +5,7 @@ const db = require('./utils/database')
 //? Files
 const {port} = require('./config');
 //* Routes
+const initModels = require('./models/initModels')
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
 
@@ -29,7 +30,7 @@ db.sync()
         console.log(err)
     })
 
-
+initModels()
 
 
 app.get('/',(req, res) => {
